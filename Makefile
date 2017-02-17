@@ -20,7 +20,7 @@ DUMMYFLAG += -Ilib -L./lib/ -lmylib
 all		: $(NAME)
 
 $(NAME)		: 
-		  $(CC) $(CFLAGS) $(CPPFLAGS) -shared -o $(NAME) -fPIC
+		  $(CC) $(CFLAGS) $(CPPFLAGS) -shared -o $(NAME) $(SRCS) -fPIC
 
 test     : $(OBJS)
 			$(CC) $(CFLAGS) $(CPPFLAGS) $(DUMMYFLAG) $(SRCS) $(MAIN) -o $(test) 

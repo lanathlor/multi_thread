@@ -1,47 +1,34 @@
 #ifndef MULTI_THREAD_H_
 #define MULTI_THREAD_H_
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <errno.h>
-#include "libmy.h"
-	
-typedef enum e_type
+typedef struct s_multithread // this structure is needed you can pa
 {
-	_int,
-	_char
-}						t_type;
-
-typedef enum e_sense
-{
-	_vector,
-	_unarie
-}						t_sense;
-
-typedef struct s_multithread
-{
-	pthread_t *thread;
-	size_t    size;
-	size_t    current;
-	void *(*function)(void *);
-	void *args;
-	t_type type;
-	t_sense sense;
+	pthread_t *thread; //array of thread
+	size_t    size; //number of thread
+	size_t    current; //the current thread. can be get with get_current
+	void *(*function)(void *); // the function that will be call in thread
+	void *args; //args that can be used in the called func, can be modified
 }							t_multithread;
 
-void create_multithread(t_multithread *threads);
-void join_multithread(t_multithread *threads);
+void create_multithread(t_multithread *threads); // init
+void join_multithread(t_multithread *threads); // join the thread. wait for all the thread to be finish
+void split(t_multithread *threads); /* init the thread 
+																		and in the darkness join them all.
+																		same as calling the creation and joining function in a row */
 void set_up(t_multithread *threads, 
-						size_t size, void *args, void *(*function)(void *));
-void split(t_multithread *threads);
+						size_t size, void *args, void *(*function)(void *)); 
+/* set up the threads structure with 
+				the number of thread to create
+				the args to pass a parameters to the thread
+				the function to call with the thread */
 
-int get_currentInt(t_multithread *threads);
+t_multithread *get_threadStruct(void *addr); // return the multithread meta struct
 
-extern char **tab;
-extern pthread_mutex_t mutex_aff;
-extern pthread_mutex_t mutex_param;
+size_t get_current(t_multithread *threads); /* need to be call int the thread 
+																						function for mutex.
+																						return the current thread nb */
+
+extern pthread_mutex_t mutex_aff; // define in multi_thread.c
+extern pthread_mutex_t mutex_param; // define in multi_thread.c
 
 #endif
