@@ -13,7 +13,9 @@ MAIN    = test_file/main.c
 
 CFLAGS		+= -W -Wall -Werror -Wextra
 
-CPPFLAGS	+= -Iinclude -Ilib -pthread -L./lib/ -lmylib
+CPPFLAGS	+= -Iinclude -pthread
+
+DUMMYFLAG += -Ilib -L./lib/ -lmylib
 
 all		: $(NAME)
 
@@ -21,7 +23,7 @@ $(NAME)		:
 		  $(CC) $(CFLAGS) $(CPPFLAGS) -shared -o $(NAME) -fPIC
 
 test     : $(OBJS)
-			$(CC) $(CFLAGS) $(CPPFLAGS) $(SRCS) $(MAIN) -o $(test) 
+			$(CC) $(CFLAGS) $(CPPFLAGS) $(DUMMYFLAG) $(SRCS) $(MAIN) -o $(test) 
 
 clean		:
 		  $(RM) $(OBJS)

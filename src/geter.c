@@ -19,3 +19,41 @@ int get_currentInt(t_multithread *threads)
 	pthread_mutex_unlock(&mutex_param);
 	return (ret);
 }
+
+char get_currentChar(t_multithread *threads)
+{
+	char *tmp;
+	char ret;
+
+	if (threads->sense == _vector)
+	{
+		tmp = (char *)threads->args;
+		ret = tmp[threads->current];
+	}
+	else
+	{
+		tmp = (char *)threads->args;
+		ret = *tmp;
+	}
+	pthread_mutex_unlock(&mutex_param);
+	return (ret);
+}
+
+char *get_currentCharPtr(t_multithread *threads)
+{
+	char **tmp;
+	char *ret;
+
+	if (threads->sense == _vector)
+	{
+		tmp = (char **)threads->args;
+		ret = tmp[threads->current];
+	}
+	else
+	{
+		tmp = (char **)threads->args;
+		ret = *tmp;
+	}
+	pthread_mutex_unlock(&mutex_param);
+	return (ret);
+}
