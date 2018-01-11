@@ -1,5 +1,5 @@
 # multi_thread
-a mutli thread library in C using POIX pthread
+a mutli thread library in C using POSIX pthread
 
 make test to generate a test executable :
 usage : ./dummy "name of a file to read" "number of file descriptor open and reading this file simultaneously"
